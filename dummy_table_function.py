@@ -85,7 +85,6 @@ def top_ten_leaderboard():
     mycursor.execute(sql4)
     return mycursor.fetchall()
 
-print(top_ten_leaderboard())
 
 sql0 = f"SELECT *  FROM leaderBoard WHERE user_id = 60"
 mycursor.execute(sql0)
