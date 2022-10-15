@@ -57,3 +57,19 @@ def find_image_score(img: str, correct_species: dict[str, int], init_time: datet
             return find_current_score(correct_species[name], init_time)
 
     return 0
+
+
+# testing the code
+if __name__ == '__main__':
+    img_path = 'test_pictures/palm-tree.jpg'
+    challenge_scores = {
+        # palm tree
+        'Cocos nucifera': 3000,
+        # neem tree
+        'Azadirachta indica': 2000,
+        'cucumber': 1000
+    }
+    # last week saturday, oct 8, 5pm
+    init_date = datetime.datetime(2022, 10, 8, 17, 0, 0)
+
+    print(find_image_score(img_path, challenge_scores, init_date))
