@@ -45,13 +45,14 @@ def prediction_using_file(paths):
         return convert_data_to_names(plant_results)
 
 
-def prediction_using_url(urls):
+def prediction_using_url(urls: list[str]) -> list[dict]:
     encoded_urls = [url.replace(':', '%3A').replace('/', '%2F') for url in urls]
     request_string = f'https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}'
     for url in encoded_urls:
         request_string += f'&images={url}'
     request_string += f'&organs=leaf' * len(urls)
     response = requests.get(request_string)
+    print(response.status_code)
     if str(response.status_code)[0] == '2':
         json_result = json.loads(response.text)
         plant_results = sorted(json_result["results"], key=lambda x: x["score"], reverse=True)
