@@ -1,8 +1,31 @@
+from calendar import leapdays
+from re import L
 import sqlite3
 
 conn = sqlite3.connect('mydatabase.db')
 mycursor = conn.cursor()
 
+
+#initialize the user_info table
+sqlU = f"CREATE TABLE IF NOT EXISTS userInfo (user_id INTEGER PRIMARY KEY AUTOINCREMENT, password nvarchar(100), username nvarchar(100), money INTEGER)"
+mycursor.execute(sqlU)
+
+sqlU2 = f'''
+        INSERT INTO userInfo (password, username, money)
+        VALUES
+        ('1234', 'sungjin', 1111111), 
+        ('2345', 'hong', 111), 
+        ('3456', 'varun', 111), 
+        ('4567', 'tyseer', 11111), 
+        ('5678', 'michael', 1111)
+        '''
+mycursor.execute(sqlU2)
+conn.commit()
+
+# #For testing
+# mycursor.execute("SELECT * FROM userInfo")
+# print(mycursor.fetchall())
+# print('asdasdsaas')
 
 def update_user(user_id: int, species_name: str, pic_url: str):
     # create a table for this user if it doesn't already exist
@@ -23,7 +46,7 @@ sql = '''CREATE TABLE IF NOT EXISTS leaderBoard(
 )'''
 mycursor.execute(sql)
 conn.commit()
-print(mycursor.fetchall())
+# print(mycursor.fetchall())
 
 
 # updates user information on the leader board
@@ -33,7 +56,7 @@ def update_leaderBoard(user_id: int, score: int):
     # if this user is uploading the photo for the FIRST TIME
     data = mycursor.fetchone()
 
-    if not data:
+    if data == None:
         sql2 = f'''
                 INSERT INTO leaderBoard (user_id, score)
                 VALUES
@@ -43,6 +66,7 @@ def update_leaderBoard(user_id: int, score: int):
 
     else:  # the user uploaded a correct photo before (already in the table)
         add_score = data[1] + score
+        print(data[1])
         sql3 = f'''
                 UPDATE leaderBoard
                 SET score = {add_score}
@@ -52,12 +76,20 @@ def update_leaderBoard(user_id: int, score: int):
     conn.commit()
 
 
-# def top_ten_leaderboard():
+def top_ten_leaderboard():
+    # sort the table first based on score
+    sql4 = '''SELECT user_id, score
+    FROM leaderBoard
+    ORDER BY score DESC
+    LIMIT 10'''
+    mycursor.execute(sql4)
+    return mycursor.fetchall()
 
+print(top_ten_leaderboard())
 
+sql0 = f"SELECT *  FROM leaderBoard WHERE user_id = 60"
+mycursor.execute(sql0)
 
-update_leaderBoard(60, 20)
-sql = f"SELECT *  FROM leaderBoard WHERE user_id = 60"
-mycursor.execute(sql)
+mycursor
 
 conn.commit()
