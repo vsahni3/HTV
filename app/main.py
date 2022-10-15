@@ -44,9 +44,32 @@ def login():
     else:
         return render_template("login.html")
 
-# @app.route("/login")
-# def user():
-#     return request.url
+
+@app.route("/challenges")
+@login_required
+def challenges():
+    with open("app/templates/contest_prize_pool.txt", "r") as f:
+        pool = int(f.readline())
+    return render_template('challenges.html', pool=pool)
+
+
+@app.route("/donate", methods=['GET', 'POST'])
+@login_required
+def donate():
+    if request.method == 'POST':
+        donation_amount = int(request.form.get("donate"))
+        if "TODO: user has enough money":
+            "TODO: remove money from user"
+            with open("app/templates/contest_prize_pool.txt", "r") as f:
+                pool = int(f.readline())
+            # update new pool
+            with open("app/templates/contest_prize_pool.txt", "w") as f:
+                f.write(str(pool + donation_amount))
+
+        return redirect("/challenges")
+    else:
+        return render_template('donate.html')
+
 
 @app.route("/", methods=['GET'])
 @login_required
