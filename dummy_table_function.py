@@ -86,9 +86,13 @@ def top_ten_leaderboard():
     return mycursor.fetchall()
 
 
-sql0 = f"SELECT *  FROM leaderBoard WHERE user_id = 60"
-mycursor.execute(sql0)
+# get list of all picture URLS stored in this user's table 
+def get_picURLs(user_id):
+    # select pic_URLS where user_id = {user_id}
+    sql5 = f"SELECT pic_URL FROM user{str(user_id)}"
+    mycursor.execute(sql5)
+    return mycursor.fetchall()
 
-mycursor
-
+update_user(1, 'asdadsdsa', 'someURL1')
+print(get_picURLs(1), 'asdasdsasadasd')
 conn.commit()
