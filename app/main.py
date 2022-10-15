@@ -1,12 +1,22 @@
 from django.shortcuts import render
 from flask import Flask, render_template, request
-import location
 app = Flask(__name__)
 
 @app.route("/")
-def hello():
-    data = location.give_region()
-    return render_template('index.html', data=data)
+def login():
+    return render_template('login.html')
+
+# @app.route("/login")
+# def user():
+#     return request.url
+
+@app.route("/pwd", methods=['POST', 'GET'])
+def pwd():
+    if request.method == "POST":
+        if "form1" in request.form:
+            return "form1"
+        elif "form2" in request.form:
+            return "form2"
 
 @app.route("/upload-file", methods=["POST", "GET"])
 def uploader():
@@ -19,3 +29,4 @@ def uploader():
 @app.route("/upload")
 def upload():
     return render_template('upload.html')
+
