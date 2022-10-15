@@ -1,5 +1,3 @@
-from calendar import leapdays
-from re import L
 import sqlite3
 
 conn = sqlite3.connect('mydatabase.db')
@@ -35,7 +33,7 @@ def update_leaderBoard(user_id: int, score: int):
     # if this user is uploading the photo for the FIRST TIME
     data = mycursor.fetchone()
 
-    if data == None:
+    if not data:
         sql2 = f'''
                 INSERT INTO leaderBoard (user_id, score)
                 VALUES
@@ -55,7 +53,7 @@ def update_leaderBoard(user_id: int, score: int):
 
 
 # def top_ten_leaderboard():
-    
+
 
 
 update_leaderBoard(60, 20)
