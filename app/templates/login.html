@@ -32,8 +32,10 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100">
-				{{msg}}
-				<form action="/login" method="post">
+				{% if data != 'good' %}
+					{{ data }}
+				{% endif %}
+				<form action="/login/good" method="post">
 					<div class="form-group">
 						<input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
 					</div>
