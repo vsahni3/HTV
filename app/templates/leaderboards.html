@@ -58,19 +58,13 @@
       <div class="text-center">
         <h2 class="text-7xl py-8 text-white text-center">Leaderboard</h2>
         <div class="recommendation_list">
-<<<<<<< HEAD
+
           {% for row in data|batch(2) %}
           {% for column in row %}
           <h3 class="text-3xl py-8 text-white text-center">{{column[1]}}) {{column[2]}}: {{column[0]}}</h3>
           {% endfor %}
           {% endfor %}
 
-=======
-          {% for row in data|batch(2) %} {% for column in row %}
-          <h3 class="text-3xl py-8 text-white text-center">
-            {{column[1]}}) {{column[2]}}: {{column[1]}}
-          </h3>
->>>>>>> 1fee22f460a31f738da5abfe2c8f9664c310de35
         </div>
       </div>
     </div>
