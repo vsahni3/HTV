@@ -14,6 +14,17 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+current_challenge = {
+    'start_date': datetime(2022, 10, 9, 0, 0, 0),
+    'species_name': {
+        # palm tree
+        'Cocos nucifera': 3000,
+        # neem tree
+        'Azadirachta indica': 2000,
+        'Dionaea muscipula': 1000
+    }
+    }
+
 def login_required(f):
     """
     Decorate routes to require login.
@@ -33,6 +44,7 @@ def login(msg):
 
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
+
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
         session.clear()
@@ -118,17 +130,7 @@ def login(msg):
 @login_required
 def challenges():
     region = give_region()
-    current_challenge = {
-        'start_date': datetime(2022, 10, 9, 0, 0, 0),
-        'species_name': {
-            # palm tree
-            'Cocos nucifera': 3000,
-            # neem tree
-            'Azadirachta indica': 2000,
-            'Dionaea muscipula': 1000
-        }
-    }
-    session['current_challenge'] = current_challenge
+
     with open("app/templates/contest_prize_pool.txt", "r") as f:
         pool = int(f.readline())
     data = [region, pool, current_challenge]
@@ -176,7 +178,6 @@ def uploader():
         f = request.files['file']
         f.save(f.filename)
         username = session["username"]
-        current_challenge = session["current_challenge"]
         found_score = dexter(f.filename, current_challenge["species_name"], current_challenge["start_date"])
 
         conn = sqlite3.connect('mydatabase.db')
