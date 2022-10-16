@@ -12,14 +12,50 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
 
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <title>EnvironmentGo</title>
   </head>
   <body>
+    <nav
+      class="p-5 bg-emerald-700 shadow md:flex md:items-center md:justify-between py-8"
+    >
+      <div>
+        <span class="text-2xl text-white font-body">EnvGo</span>
+      </div>
+      <ul class="md:flex md:items-center">
+        <li class="mx-4 my-6 md:my-0">
+          <button
+            href="#"
+            class="text-xl hover:text-black duration-500 text-white"
+          >
+            Learderboards
+          </button>
+        </li>
+        <li class="mx-4 my-6 md:my-0">
+          <a href="#" class="text-xl hover:text-black duration-500 text-white">
+            Upload
+          </a>
+        </li>
+        <li class="mx-4 my-6 md:my-0"></li>
+      </ul>
+    </nav>
 
-    <h1>Hello, the current prize pool is {{pool}}</h1>
-    <a href='/donate'>Donate to prize pool</a>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class="grid place-items-center h-screen bg-emerald-300">
+      <div class="text-center">
+        <h2 class="text-6xl py-8 text-white text-center">
+          The current prize pool is:
+        </h2>
+        <h1 class="text-6xl py-8 text-white text-center font-bold">{{pool}}</h1>
+        <button
+          href="/donate"
+          class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full"
+          type="submit"
+        >
+          Donate to prize pool
+        </button>
+      </div>
+    </div>
     <div id="root"></div>
   </body>
 </html>
