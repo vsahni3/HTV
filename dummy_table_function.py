@@ -6,7 +6,7 @@ mycursor = conn.cursor()
 # mycursor.execute('DELETE FROM userInfo WHERE user_id > 5')
 # mycursor.execute('SELECT * FROM userInfo')
 # print(mycursor.fetchall())
-# mycursor.execute('DELETE FROM leaderBoard WHERE user_id > 5')
+# mycursor.execute('DELETE FROM user3 WHERE pic_id = 7')
 # mycursor.execute('SELECT * FROM user3')
 # print(mycursor.fetchall())
 
@@ -171,7 +171,8 @@ def calc_user_progress(user_id, challenges: list):
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
     cursor.execute(f'SELECT species_name FROM user{user_id}')
-    data = set(cursor.fetchall())
+    data = [i[0] for i in set(cursor.fetchall())]
+    print(data)
     completed = []
     for species in challenges:
         if species in data:
@@ -180,7 +181,7 @@ def calc_user_progress(user_id, challenges: list):
             completed.append('Species Currently Not Found...')
     return completed
 
-
+# print(calc_user_progress(3, ['Cocos nucifera', 'Azadirachta indica', 'Dionaea muscipula']))
 
 
 
