@@ -99,8 +99,9 @@ def challenges():
 def donate():
     if request.method == 'POST':
         donation_amount = int(request.form.get("donate"))
-        if "TODO: user has enough money":
-            "TODO: remove money from user"
+        username = session["username"]
+        if "TODO: user has enough money: user table, parameters(username, donation_amount) -> bool":
+            "TODO: remove money from user: user table, parameters(username, donation_amount) -> None"
             with open("app/templates/contest_prize_pool.txt", "r") as f:
                 pool = int(f.readline())
             # update new pool
@@ -123,11 +124,12 @@ def uploader():
     if request.method == 'POST':
         f = request.files['file']
         f.save(f.filename)
+        username = session["username"]
         current_challenge = session["current_challenge"]
         found_score = dexter(f.filename, current_challenge["species_name"], current_challenge["start_date"])
-        "TODO: add found score to user score in leaderboard"
+        "TODO: add found score to user score in leaderboard: leaderboard, parameters(username, found_score) -> None"
         remove(f.filename)
-        "TODO: display the score result on challenges page?"
+        "TODO: display the score result on challenges page? not SQL so get varun to do it"
         return redirect("/challenges")
 
 
