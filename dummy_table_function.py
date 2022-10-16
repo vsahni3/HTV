@@ -46,6 +46,8 @@ sqlU2 = f'''
 # print('asdasdsaas')
 
 def update_user(user_id: int, species_name: str, pic_url: str):
+    conn = sqlite3.connect('mydatabase.db')
+    mycursor = conn.cursor()
     # create a table for this user if it doesn't already exist
     # user_id -> pic_id
     sql1 = f"CREATE TABLE IF NOT EXISTS user{str(user_id)} (pic_id INTEGER PRIMARY KEY AUTOINCREMENT, species_name nvarchar(100), pic_url nvarchar(200))"

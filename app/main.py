@@ -179,17 +179,15 @@ def index():
 @app.route("/upload-file", methods=["POST", "GET"])
 def uploader():
     if request.method == 'POST':
+        conn = sqlite3.connect('mydatabase.db')
+        cursor = conn.cursor()
         f = request.files['file']
         f.save(f.filename)
         username = session["username"]
-        found_score = dexter(f.filename, current_challenge["species_name"], current_challenge["start_date"])
-
-        conn = sqlite3.connect('mydatabase.db')
-        cursor = conn.cursor()
         sql1 = f"SELECT user_id FROM userInfo WHERE username = '{username}'"
         cursor.execute(sql1)
         user_id = cursor.fetchone()[0]
-        print(user_id)
+        found_score = dexter(user_id, f.filename, current_challenge["species_name"], current_challenge["start_date"])
 
         add_found_score(user_id, found_score)
         remove(f.filename)

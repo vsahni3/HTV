@@ -3,7 +3,7 @@
 import datetime
 from api import prediction_using_url
 from image_url_test import get_image_url
-
+from dummy_table_function import update_user
 
 def find_names(data: list[dict]) -> set[str]:
     """Given the data from predictions, find all the scientific names from the top 3"""
@@ -39,7 +39,7 @@ def find_current_score(init_score: int, init_time: datetime.datetime) -> int:
     return round(current_score)
 
 
-def dexter(img: str, correct_species: dict[str, int], init_time: datetime.datetime) -> int:
+def dexter(user_id, img: str, correct_species: dict[str, int], init_time: datetime.datetime) -> int:
     """
     Take in an image and a mapping of correct species to their initial score
     First call get_image_url to get the image url of the image
@@ -54,6 +54,7 @@ def dexter(img: str, correct_species: dict[str, int], init_time: datetime.dateti
 
     for name in names:
         if name in correct_species:
+            update_user(user_id, name, image_url)
             return find_current_score(correct_species[name], init_time)
 
     return 0
