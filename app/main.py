@@ -213,8 +213,9 @@ def leaderboard():
     cursor.execute("SELECT score FROM leaderBoard")
     scores = cursor.fetchall()
     print(scores)
-    counts = list(range(1, 6))
-    data = sorted([[scores[i][0], counts[i], usernames[i][0].title()] for i in range(5)], key=lambda x: x[0], reverse=True)
+    counts = range(1, 6)
+    data = sorted([[scores[i][0], usernames[i][0].title()] for i in range(5)], key=lambda x: x[0], reverse=True)
+    data = [[data[i][0], counts[i], data[i][1]] for i in range(5)]
     return render_template('leaderboards.html', data=data)
     
 

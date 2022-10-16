@@ -7,7 +7,7 @@ mycursor = conn.cursor()
 # mycursor.execute('SELECT * FROM userInfo')
 # print(mycursor.fetchall())
 # mycursor.execute('DELETE FROM leaderBoard WHERE user_id > 5')
-# mycursor.execute('SELECT * FROM leaderBoard')
+# mycursor.execute('SELECT * FROM user3')
 # print(mycursor.fetchall())
 
 
@@ -95,7 +95,7 @@ def update_leaderBoard(user_id: int, score: int):
         mycursor.execute(sql3)
     conn.commit()
 
-# update_leaderBoard(1, 6222)
+# update_leaderBoard(3, -1000)
 # update_leaderBoard(3, -6222)
 # update_leaderBoard(2, 1500)
 def top_ten_leaderboard():
