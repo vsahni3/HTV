@@ -192,9 +192,6 @@ def uploader():
         print(user_id)
 
         add_found_score(user_id, found_score)
-        sql1 = f"SELECT * FROM userInfo WHERE username = '{username}'"
-        cursor.execute(sql1)
-        print(cursor.fetchall())
         remove(f.filename)
         
         return redirect("/challenges/" + str(found_score))

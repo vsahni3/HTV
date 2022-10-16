@@ -163,6 +163,7 @@ def add_found_score(user_id, found_score):
             WHERE user_id = {user_id}
             '''
     mycursor.execute(sql9)
+    conn.commit()
 # add_found_score(3, -4722)
 def calc_user_progress(user_id, challenges: list):
     conn = sqlite3.connect('mydatabase.db')
