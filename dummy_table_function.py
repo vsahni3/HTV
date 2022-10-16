@@ -17,16 +17,21 @@ sqlU2 = f'''
         ('2345', 'hong', 111), 
         ('3456', 'varun', 111), 
         ('4567', 'tyseer', 11111), 
-        ('5678', 'michael', 1111)
+        ('5678', 'michael', 1111) 
         '''
 mycursor.execute(sqlU2)
 conn.commit()
 
+
 mycursor.execute('SELECT * FROM userInfo WHERE username = "varun"')
 print(mycursor.fetchall())
 
-mycursor.execute("INSERT INTO user3 (species_name, pic_url) VALUES ('Aloe vera', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYXB6Cq5qG0VEUXD8B-ni2j9HHwsep9rZncA&usqp=CAU')")
-mycursor.execute("INSERT INTO user3 (species_name, pic_url) VALUES ('Bambusa vulgaris', '')")
+# mycursor.execute("INSERT INTO user3 (species_name, pic_url) VALUES ('Aloe vera', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYXB6Cq5qG0VEUXD8B-ni2j9HHwsep9rZncA&usqp=CAU')")
+# mycursor.execute("INSERT INTO user3 (species_name, pic_url) VALUES ('Bambusa vulgaris', 'https://images.squarespace-cdn.com/content/v1/5e5cd082c50ea102c52e5bb0/1590049336762-S27YM4UE2NKLPEECQZE8/Bambusa+vulgaris')")
+# mycursor.execute("INSERT INTO user3 (species_name, pic_url) VALUES ('Russian Olive', 'https://www.nature-and-garden.com/wp-content/uploads/sites/4/2018/06/russian-olive-invasive-tree.jpg')")
+# mycursor.execute("INSERT INTO user3 (species_name, pic_url) VALUES ('Buckthorn', 'https://newfs.s3.amazonaws.com/taxon-images-1000s1000/Rhamnaceae/rhamnus-cathartica-fr-ahaines.jpg')")
+# mycursor.execute("INSERT INTO user3 (species_name, pic_url) VALUES ('Creeping dogwood', 'https://www.gardenia.net/storage/app/public/uploads/images/detail/iyTlprNOQ9qhl2kUgY0DpP2GubNjwlzrU0wW7aP2.webp')")
+# mycursor.execute("INSERT INTO user3 (species_name, pic_url) VALUES ('Ilex verticillata', 'https://cdn.shopify.com/s/files/1/0261/2523/8377/products/bunchberryrestock_1024x1024_2x_c7516b0a-cd21-480f-bb1c-b60478c71ca8_1555x.png?v=1643321869')")
 
 # #For testing
 # mycursor.execute("SELECT * FROM userInfo")
