@@ -26,65 +26,63 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-# @app.route("/login/<msg>", methods=["GET", "POST"])
-# def login(msg):
-#     """Log user in"""
-#
-#     conn = sqlite3.connect('mydatabase.db')
-#     cursor = conn.cursor()
-#     # User reached route via POST (as by submitting a form via POST)
-#     if request.method == "POST":
-#         session.clear()
-#
-#         username = request.form.get("username")
-#         password = request.form.get("password")
-#         session["username"] = username
-#         session["password"] = password
-#         sql1 = f"SELECT *  FROM userInfo WHERE username = '{username}'"
-#         cursor.execute(sql1)
-#         data = cursor.fetchone()
-#         print(data[1], password)
-#         if data and data[1] == password:
-#             return redirect("/")
-#         else:
-#             return redirect(f"/login/{msg}")
-#     else:
-#         return render_template("login.html", data=msg)
-
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
+@app.route("/login/<msg>", methods=["GET", "POST"])
+def login(msg):
     """Log user in"""
-<<<<<<< HEAD
+
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
-=======
-
->>>>>>> 4ec289d3249ed729d8ef47c369e4d20b78fa26b6
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
         session.clear()
 
         username = request.form.get("username")
         password = request.form.get("password")
-
-        print(username, password)
         session["username"] = username
         session["password"] = password
-<<<<<<< HEAD
         sql1 = f"SELECT *  FROM userInfo WHERE username = '{username}'"
         cursor.execute(sql1)
         data = cursor.fetchone()
         print(data[1], password)
         if data and data[1] == password:
-            print(10)
             return redirect("/")
         else:
-            print(5)
-            return redirect("/login/Invalid Login")
+            return redirect(f"/login/Invalid Login")
     else:
-        print(15)
         return render_template("login.html", data=msg)
+
+
+# @app.route("/login", methods=["GET", "POST"])
+# def login():
+#     """Log user in"""
+#     conn = sqlite3.connect('mydatabase.db')
+#     cursor = conn.cursor()
+
+
+#     # User reached route via POST (as by submitting a form via POST)
+#     if request.method == "POST":
+#         session.clear()
+
+#         username = request.form.get("username")
+#         password = request.form.get("password")
+
+#         print(username, password)
+#         session["username"] = username
+#         session["password"] = password
+
+#         sql1 = f"SELECT *  FROM userInfo WHERE username = '{username}'"
+#         cursor.execute(sql1)
+#         data = cursor.fetchone()
+#         print(data[1], password)
+#         if data and data[1] == password:
+#             print(10)
+#             return redirect("/")
+#         else:
+#             print(5)
+#             return redirect("/login/Invalid Login")
+#     else:
+#         print(15)
+#         return render_template("login.html", data=msg)
 
 
 # @app.route("/login", methods=["GET", "POST"])
@@ -101,21 +99,20 @@ def login():
 #         print(username, password)
 #         session["username"] = username
 #         session["password"] = password
-=======
->>>>>>> 4ec289d3249ed729d8ef47c369e4d20b78fa26b6
 
-        # Redirect user to home page
-        return redirect("/")
 
-    # User reached route via GET (as by clicking a link or via redirect)
-    else:
-        return render_template("login.html")
+    #     # Redirect user to home page
+    #     return redirect("/")
 
-<<<<<<< HEAD
+    # # User reached route via GET (as by clicking a link or via redirect)
+    # else:
+    #     return render_template("login.html")
+
+
 # @app.route("/login")
 # def user():
 #     return request.url
-=======
+
 
 @app.route("/challenges")
 @login_required
@@ -154,7 +151,6 @@ def donate():
     else:
         return render_template('donate.html')
 
->>>>>>> 4ec289d3249ed729d8ef47c369e4d20b78fa26b6
 
 @app.route("/")
 @login_required
