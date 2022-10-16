@@ -18,14 +18,13 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if session.get("username") is None:
-            return redirect("/login")
+            return redirect("/login/good")
         return f(*args, **kwargs)
     return decorated_function
 
 @app.route("/login/<msg>", methods=["GET", "POST"])
 def login(msg):
     """Log user in"""
-    
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
     # User reached route via POST (as by submitting a form via POST)
@@ -41,10 +40,13 @@ def login(msg):
         data = cursor.fetchone()
         print(data[1], password)
         if data and data[1] == password:
+            print(10)
             return redirect("/")
         else:
-            return redirect(f"/login/{msg}")
+            print(5)
+            return redirect("/login/Invalid Login")
     else:
+        print(15)
         return render_template("login.html", data=msg)
 
 
@@ -70,32 +72,9 @@ def login(msg):
 #     else:
 #         return render_template("login.html")
 
-
-@app.route("/challenges")
-@login_required
-def challenges():
-    with open("app/templates/contest_prize_pool.txt", "r") as f:
-        pool = int(f.readline())
-    return render_template('challenges.html', pool=pool)
-
-
-@app.route("/donate", methods=['GET', 'POST'])
-@login_required
-def donate():
-    if request.method == 'POST':
-        donation_amount = int(request.form.get("donate"))
-        if "TODO: user has enough money":
-            "TODO: remove money from user"
-            with open("app/templates/contest_prize_pool.txt", "r") as f:
-                pool = int(f.readline())
-            # update new pool
-            with open("app/templates/contest_prize_pool.txt", "w") as f:
-                f.write(str(pool + donation_amount))
-
-        return redirect("/challenges")
-    else:
-        return render_template('donate.html')
-
+# @app.route("/login")
+# def user():
+#     return request.url
 
 @app.route("/")
 @login_required
