@@ -39,7 +39,7 @@ def find_current_score(init_score: int, init_time: datetime.datetime) -> int:
     return round(current_score)
 
 
-def find_image_score(img: str, correct_species: dict[str, int], init_time: datetime.datetime) -> int:
+def dexter(img: str, correct_species: dict[str, int], init_time: datetime.datetime) -> int:
     """
     Take in an image and a mapping of correct species to their initial score
     First call get_image_url to get the image url of the image
@@ -72,4 +72,4 @@ if __name__ == '__main__':
     # last week saturday, oct 8, 5pm
     init_date = datetime.datetime(2022, 10, 8, 17, 0, 0)
 
-    print(find_image_score(img_path, challenge_scores, init_date))
+    print(dexter(img_path, challenge_scores, init_date))

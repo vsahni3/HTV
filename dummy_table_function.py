@@ -22,6 +22,12 @@ sqlU2 = f'''
 mycursor.execute(sqlU2)
 conn.commit()
 
+mycursor.execute('SELECT * FROM userInfo WHERE username = "varun"')
+print(mycursor.fetchall())
+
+mycursor.execute("INSERT INTO user3 (species_name, pic_url) VALUES ('Aloe vera', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYXB6Cq5qG0VEUXD8B-ni2j9HHwsep9rZncA&usqp=CAU')")
+mycursor.execute("INSERT INTO user3 (species_name, pic_url) VALUES ('Bambusa vulgaris', '')")
+
 # #For testing
 # mycursor.execute("SELECT * FROM userInfo")
 # print(mycursor.fetchall())
@@ -85,11 +91,14 @@ def top_ten_leaderboard():
     mycursor.execute(sql4)
     return mycursor.fetchall()
 
-print(top_ten_leaderboard())
 
-sql0 = f"SELECT *  FROM leaderBoard WHERE user_id = 60"
-mycursor.execute(sql0)
+# get list of all picture URLS stored in this user's table 
+def get_picURLs(user_id):
+    # select pic_URLS where user_id = {user_id}
+    sql5 = f"SELECT pic_URL FROM user{str(user_id)}"
+    mycursor.execute(sql5)
+    return mycursor.fetchall()
 
-mycursor
-
+update_user(1, 'asdadsdsa', 'someURL1')
+print(get_picURLs(1), 'asdasdsasadasd')
 conn.commit()
