@@ -3,8 +3,13 @@ from turtle import update
 
 conn = sqlite3.connect('mydatabase.db')
 mycursor = conn.cursor()
+# mycursor.execute('DELETE FROM userInfo WHERE user_id > 5')
 # mycursor.execute('SELECT * FROM userInfo')
 # print(mycursor.fetchall())
+# mycursor.execute('DELETE FROM leaderBoard WHERE user_id > 5')
+# mycursor.execute('SELECT * FROM leaderBoard')
+# print(mycursor.fetchall())
+
 
 #initialize the user_info table
 sqlU = f"CREATE TABLE IF NOT EXISTS userInfo (user_id INTEGER PRIMARY KEY AUTOINCREMENT, password nvarchar(100), username nvarchar(100), money INTEGER)"
@@ -88,7 +93,9 @@ def update_leaderBoard(user_id: int, score: int):
         mycursor.execute(sql3)
     conn.commit()
 
-
+# update_leaderBoard(1, 6222)
+# update_leaderBoard(3, -6222)
+# update_leaderBoard(2, 1500)
 def top_ten_leaderboard():
     # sort the table first based on score
     sql4 = '''SELECT user_id, score
@@ -108,6 +115,8 @@ def get_picURLs(user_id):
 
 # "TODO: user has enough money: user table, parameters(username, donation_amount) -> bool":
 def enough_money(username, donation_amount) -> bool:
+    conn = sqlite3.connect('mydatabase.db')
+    mycursor = conn.cursor()
     sql6 = f"SELECT money FROM userInfo WHERE username = '{username}'"
     mycursor.execute(sql6)
     return mycursor.fetchall()[0][0] >= donation_amount
@@ -115,18 +124,22 @@ def enough_money(username, donation_amount) -> bool:
 
 # "TODO2: remove money from user: user table, parameters(username, donation_amount) -> None"
 def remove_money(username, donation_amount):
+    conn = sqlite3.connect('mydatabase.db')
+    mycursor = conn.cursor()
     sql7 = f"SELECT money FROM userInfo WHERE username = '{username}'"
     mycursor.execute(sql7)
     data = mycursor.fetchone()
-    print(data)
     minus_money = data[0] - donation_amount
-
+ 
     sql8 = f'''
             UPDATE userInfo
             SET money = '{minus_money}'
             WHERE username = '{username}'
             '''
     mycursor.execute(sql8)
+    conn.commit()
+
+# remove_money('varun', 200)
 
 
 ########################ERROR HERE (TODO2 test)####################################################################################
@@ -150,7 +163,7 @@ def add_found_score(user_id, found_score):
             WHERE user_id = {user_id}
             '''
     mycursor.execute(sql9)
-
+# add_found_score(3, -4722)
 def calc_user_progress(user_id, challenges: list):
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()

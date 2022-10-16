@@ -4,7 +4,7 @@ from functools import wraps
 from os import remove
 from tempfile import mkdtemp
 from datetime import datetime
-from dummy_table_function import add_found_score, calc_user_progress
+from dummy_table_function import add_found_score, calc_user_progress, enough_money, remove_money
 from score_functions import dexter
 import sqlite3
 from location import give_region
@@ -146,8 +146,8 @@ def donate():
     if request.method == 'POST':
         donation_amount = int(request.form.get("donate"))
         username = session["username"]
-        if "TODO: user has enough money: user table, parameters(username, donation_amount) -> bool":
-            "TODO: remove money from user: user table, parameters(username, donation_amount) -> None"
+        if enough_money(username, donation_amount):
+            remove_money(username, donation_amount)
             with open("app/templates/contest_prize_pool.txt", "r") as f:
                 pool = int(f.readline())
             # update new pool
@@ -192,6 +192,9 @@ def uploader():
         print(user_id)
 
         add_found_score(user_id, found_score)
+        sql1 = f"SELECT * FROM userInfo WHERE username = '{username}'"
+        cursor.execute(sql1)
+        print(cursor.fetchall())
         remove(f.filename)
         
         return redirect("/challenges/" + str(found_score))
@@ -210,8 +213,11 @@ def leaderboard():
     sql1 = "SELECT username FROM userInfo WHERE user_id in (SELECT user_id FROM leaderBoard)"
     cursor.execute(sql1)
     usernames = cursor.fetchall()
+    print(usernames)
+
     cursor.execute("SELECT score FROM leaderBoard")
     scores = cursor.fetchall()
+    print(scores)
     counts = list(range(1, 6))
     data = sorted([[scores[i][0], counts[i], usernames[i][0].title()] for i in range(5)], key=lambda x: x[0], reverse=True)
     return render_template('leaderboards.html', data=data)
