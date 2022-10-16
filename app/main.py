@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, redirect, session
 from flask_session import Session
 from functools import wraps
+from os import remove
 from tempfile import mkdtemp
+from datetime import datetime
+from score_functions import find_image_score
 
 app = Flask(__name__)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
@@ -48,6 +51,17 @@ def login():
 @app.route("/challenges")
 @login_required
 def challenges():
+    current_challenge = {
+        'start_date': datetime(2022, 10, 9, 0, 0, 0)
+        'species_name': {
+        # palm tree
+        'Cocos nucifera': 3000,
+        # neem tree
+        'Azadirachta indica': 2000,
+        'cucumber': 1000
+        }
+    }
+    session['current_challenge'] = current_challenge
     with open("app/templates/contest_prize_pool.txt", "r") as f:
         pool = int(f.readline())
     return render_template('challenges.html', pool=pool)
@@ -82,7 +96,12 @@ def uploader():
     if request.method == 'POST':
         f = request.files['file']
         f.save(f.filename)
-        return f.filename
+        current_challenge = session["current_challenge"]
+        found_score = find_image_score(f.filename, current_challenge["species_name"], current_challenge["start_date"])
+        "TODO: add found score to user score in leaderboard"
+        remove(f.filename)
+        "TODO: display the score result on challenges page?"
+        return redirect("/challenges")
 
 
 @app.route("/upload")
