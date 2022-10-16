@@ -6,6 +6,7 @@ from tempfile import mkdtemp
 from datetime import datetime
 from score_functions import dexter
 import sqlite3
+from location import give_region
 
 app = Flask(__name__)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
@@ -116,6 +117,7 @@ def login(msg):
 @app.route("/challenges")
 @login_required
 def challenges():
+    region = give_region()
     current_challenge = {
         'start_date': datetime(2022, 10, 9, 0, 0, 0),
         'species_name': {
@@ -129,7 +131,8 @@ def challenges():
     session['current_challenge'] = current_challenge
     with open("app/templates/contest_prize_pool.txt", "r") as f:
         pool = int(f.readline())
-    return render_template('challenges.html', pool=pool)
+    data = [region, pool, current_challenge]
+    return render_template('challenges.html', data=data)
 
 
 @app.route("/donate", methods=['GET', 'POST'])
