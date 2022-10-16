@@ -52,13 +52,13 @@ def login():
 @login_required
 def challenges():
     current_challenge = {
-        'start_date': datetime(2022, 10, 9, 0, 0, 0)
+        'start_date': datetime(2022, 10, 9, 0, 0, 0),
         'species_name': {
-        # palm tree
-        'Cocos nucifera': 3000,
-        # neem tree
-        'Azadirachta indica': 2000,
-        'cucumber': 1000
+            # palm tree
+            'Cocos nucifera': 3000,
+            # neem tree
+            'Azadirachta indica': 2000,
+            'cucumber': 1000
         }
     }
     session['current_challenge'] = current_challenge
