@@ -22,6 +22,12 @@ sqlU2 = f'''
 mycursor.execute(sqlU2)
 conn.commit()
 
+mycursor.execute('SELECT * FROM userInfo WHERE username = "varun"')
+print(mycursor.fetchall())
+
+mycursor.execute("INSERT INTO user3 (species_name, pic_url) VALUES ('Aloe vera', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYXB6Cq5qG0VEUXD8B-ni2j9HHwsep9rZncA&usqp=CAU')")
+mycursor.execute("INSERT INTO user3 (species_name, pic_url) VALUES ('Bambusa vulgaris', '')")
+
 # #For testing
 # mycursor.execute("SELECT * FROM userInfo")
 # print(mycursor.fetchall())
