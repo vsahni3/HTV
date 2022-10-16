@@ -1,5 +1,3 @@
-from calendar import leapdays
-from re import L
 import sqlite3
 
 conn = sqlite3.connect('mydatabase.db')
