@@ -127,7 +127,16 @@ def uploader():
         username = session["username"]
         current_challenge = session["current_challenge"]
         found_score = dexter(f.filename, current_challenge["species_name"], current_challenge["start_date"])
-        "TODO: add found score to user score in leaderboard: leaderboard, parameters(username, found_score) -> None"
+
+        conn = sqlite3.connect('mydatabase.db')
+        cursor = conn.cursor()
+        sql1 = f"SELECT *  FROM userInfo WHERE username = '{username}'"
+        cursor.execute(sql1)
+        data = cursor.fetchone()
+        print(data[0])
+        user_id = data[0]
+
+        "TODO: add found score to user score in leaderboard: leaderboard, parameters(user_id, found_score) -> None"
         remove(f.filename)
         "TODO: display the score result on challenges page? not SQL so get varun to do it"
         return redirect("/challenges")
