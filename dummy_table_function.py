@@ -106,6 +106,48 @@ def get_picURLs(user_id):
     mycursor.execute(sql5)
     return mycursor.fetchall()
 
+# "TODO: user has enough money: user table, parameters(username, donation_amount) -> bool":
+def enough_money(username, donation_amount) -> bool:
+    sql6 = f"SELECT money FROM userInfo WHERE username = '{username}'"
+    mycursor.execute(sql6)
+    return mycursor.fetchall()[0][0] >= donation_amount
+
+
+# "TODO2: remove money from user: user table, parameters(username, donation_amount) -> None"
+def remove_money(username, donation_amount):
+    sql7 = f"SELECT money FROM userInfo WHERE username = '{username}'"
+    mycursor.execute(sql7)
+    data = mycursor.fetchone()
+    minus_money = data[0] - donation_amount
+
+    sql8 = f'''
+            UPDATE userInfo
+            SET money = {minus_money}
+            WHERE username = {username}
+            '''
+    mycursor.execute(sql8)
+
+
+########################ERROR HERE (TODO2 test)####################################################################################
+# remove_money('varun', 3000)
+# sql = f"SELECT money FROM userInfo WHERE username = 'varun'"
+# mycursor.execute(sql)
+# print(mycursor.fetchall())
+###################################################################################################################################
+
+# "TODO3: add found score to user score in leaderboard: leaderboard, parameters(username, found_score) -> None"
+def add_addfound_score(user_id, found_score):
+    sql_88 = f"SELECT score FROM leaderBoard WHERE user_id = {user_id}"
+    mycursor.execute(sql_88)
+    data = mycursor.fetchone()
+    print(data)
+    add_score = data[0] + found_score
+    sql9 = f'''
+            UPDATE leaderBoard
+            SET score = {add_score}
+            WHERE user_id = {user_id}
+            '''
+    mycursor.execute(sql9)
 
 
 conn.commit()
