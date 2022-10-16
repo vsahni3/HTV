@@ -34,7 +34,10 @@
     </nav>
     <div class="grid place-items-center h-screen bg-emerald-300">
       <div class="text-center">
-        <h2 class="text-9xl py-8 text-white text-center">100</h2>
+        <h3 class="text-9xl py-8 text-white text-center">Score</h3>
+        <h3 class="text-9xl py-8 text-white text-center">{{data[0]}}</h3>
+        <h3 class="text-9xl py-8 text-white text-center">Money</h3>
+        <h3 class="text-9xl py-8 text-white text-center">${{data[1]}}</h3>
         <h1 class="text-4xl text-white text-center flex font-semibold"">
           Challenge 1 Progress:
           <p class="font-bold"> <p class="text-emerald-300">_</p> Not Found</p>
@@ -49,9 +52,10 @@
         </h1>
       </div>
     </div> 
+    <center><h3>Identified Species</h3><br><br></center>
     <div class="recommendation_list">
       {% if data %}
-      {% for row in data|batch(2) %}
+      {% for row in data[2]|batch(2) %}
       {% for column in row %}
       <img src="{{ column[1] }}">
       <a class="anime-name">{{ column[0] }}</a>

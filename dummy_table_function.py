@@ -77,7 +77,7 @@ def update_leaderBoard(user_id: int, score: int):
 
     else:  # the user uploaded a correct photo before (already in the table)
         add_score = data[1] + score
-        print(data[1])
+
         sql3 = f'''
                 UPDATE leaderBoard
                 SET score = {add_score}

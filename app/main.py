@@ -157,8 +157,13 @@ def index():
 
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
-    cursor.execute('SELECT species_name, pic_url FROM user3')
+    cursor.execute(f"""SELECT user_id, money FROM userInfo WHERE username = '{session["username"]}'""")
+    user_id, money = cursor.fetchone()
+    cursor.execute(f'SELECT species_name, pic_url FROM user{user_id}')
     data = cursor.fetchall()
+    cursor.execute(f"""SELECT score FROM leaderBoard WHERE user_id = '{user_id}'""")
+    score = cursor.fetchone()[0]
+    data = [score, money, data]
     return render_template('index.html', user=session["username"], password=session["password"], data=data)
 
 
