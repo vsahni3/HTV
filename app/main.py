@@ -130,11 +130,10 @@ def uploader():
 
         conn = sqlite3.connect('mydatabase.db')
         cursor = conn.cursor()
-        sql1 = f"SELECT *  FROM userInfo WHERE username = '{username}'"
+        sql1 = f"SELECT user_id FROM userInfo WHERE username = '{username}'"
         cursor.execute(sql1)
-        data = cursor.fetchone()
-        print(data[0])
-        user_id = data[0]
+        user_id = cursor.fetchone()
+        print(user_id)
 
         "TODO: add found score to user score in leaderboard: leaderboard, parameters(user_id, found_score) -> None"
         remove(f.filename)
