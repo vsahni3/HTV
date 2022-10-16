@@ -4,6 +4,7 @@ from functools import wraps
 from os import remove
 from tempfile import mkdtemp
 from datetime import datetime
+from dummy_table_function import add_found_score
 from score_functions import dexter
 import sqlite3
 from location import give_region
@@ -126,14 +127,16 @@ def login(msg):
 #     return request.url
 
 
-@app.route("/challenges")
+@app.route("/challenges/<optional>")
 @login_required
-def challenges():
+def challenges(optional):
     region = give_region()
 
     with open("app/templates/contest_prize_pool.txt", "r") as f:
         pool = int(f.readline())
-    data = [region, pool, current_challenge]
+    data = [region, pool, list(current_challenge["species_name"].keys()), list(current_challenge["species_name"].values())]
+    if optional != 'null':
+        data.append(int(optional))
     return render_template('challenges.html', data=data)
 
 
@@ -151,7 +154,7 @@ def donate():
             with open("app/templates/contest_prize_pool.txt", "w") as f:
                 f.write(str(pool + donation_amount))
 
-        return redirect("/challenges")
+        return redirect("/challenges/null")
     else:
         return render_template('donate.html')
 
@@ -187,10 +190,10 @@ def uploader():
         user_id = cursor.fetchone()[0]
         print(user_id)
 
-        "TODO: add found score to user score in leaderboard: leaderboard, parameters(user_id, found_score) -> None"
+        add_found_score(user_id, found_score)
         remove(f.filename)
-        "TODO: display the score result on challenges page? not SQL so get varun to do it"
-        return redirect("/challenges")
+        
+        return redirect("/challenges/" + str(found_score))
 
 
 @app.route("/upload")

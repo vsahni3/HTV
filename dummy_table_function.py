@@ -3,8 +3,8 @@ from turtle import update
 
 conn = sqlite3.connect('mydatabase.db')
 mycursor = conn.cursor()
-mycursor.execute('SELECT * FROM userInfo')
-print(mycursor.fetchall())
+# mycursor.execute('SELECT * FROM userInfo')
+# print(mycursor.fetchall())
 
 #initialize the user_info table
 sqlU = f"CREATE TABLE IF NOT EXISTS userInfo (user_id INTEGER PRIMARY KEY AUTOINCREMENT, password nvarchar(100), username nvarchar(100), money INTEGER)"
@@ -138,6 +138,8 @@ def remove_money(username, donation_amount):
 
 # "TODO3: add found score to user score in leaderboard: leaderboard, parameters(username, found_score) -> None"
 def add_found_score(user_id, found_score):
+    conn = sqlite3.connect('mydatabase.db')
+    mycursor = conn.cursor()
     sql_88 = f"SELECT score FROM leaderBoard WHERE user_id = {user_id}"
     mycursor.execute(sql_88)
     data = mycursor.fetchone()
@@ -149,6 +151,10 @@ def add_found_score(user_id, found_score):
             '''
     mycursor.execute(sql9)
 
+def calc_user_progress(user_id, challenges: list):
+    conn = sqlite3.connect('mydatabase.db')
+    cursor = conn.cursor()
+    cursor.execute('')
 
 conn.commit()
 
