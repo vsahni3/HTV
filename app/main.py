@@ -4,7 +4,7 @@ from functools import wraps
 from os import remove
 from tempfile import mkdtemp
 from datetime import datetime
-from dummy_table_function import add_found_score
+from dummy_table_function import add_found_score, calc_user_progress
 from score_functions import dexter
 import sqlite3
 from location import give_region
@@ -171,7 +171,8 @@ def index():
     data = cursor.fetchall()
     cursor.execute(f"""SELECT score FROM leaderBoard WHERE user_id = '{user_id}'""")
     score = cursor.fetchone()[0]
-    data = [score, money, data]
+    species_seen = calc_user_progress(user_id, list(current_challenge["species_name"].keys()))
+    data = [score, money, data, list(current_challenge["species_name"].keys()), species_seen]
     return render_template('index.html', user=session["username"], password=session["password"], data=data)
 
 

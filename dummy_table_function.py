@@ -154,7 +154,19 @@ def add_found_score(user_id, found_score):
 def calc_user_progress(user_id, challenges: list):
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
-    cursor.execute('')
+    cursor.execute(f'SELECT species_name FROM user{user_id}')
+    data = set(cursor.fetchall())
+    completed = []
+    for species in challenges:
+        if species in data:
+            completed.append('Species Found!')
+        else:
+            completed.append('Species Currently Not Found...')
+    return completed
+
+
+
+
 
 conn.commit()
 

@@ -82,13 +82,17 @@
           The current prize pool is: {{data[1]}}
         </h2>
         <h1 class="text-6xl py-8 text-white text-center font-bold">{{pool}}</h1>
-        <button
-          href="/donate"
-          class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full"
-          type="submit"
-        >
-          Donate to prize pool
-        </button>
+        <form action="/donate" method="get">
+          <div class="pb-8 form-group">
+            
+            <button
+              class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full"
+              type="submit"
+            >
+              Donate
+            </button>
+          </div>
+        </form>
       </div>
     </div>
     <div id="root"></div>
