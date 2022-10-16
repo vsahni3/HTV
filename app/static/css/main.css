@@ -546,5 +546,36 @@ iframe {
   }
 }
 
+.recommendation_list {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: 11%;
+  margin-right: 11%;
+  text-align: center;
+  font-size: 17px;
+}
 
+.recommendations_header {
+  font-family: "Helvetica Medium", sans-serif;
+  font-size: var(--text-22);
+  margin-bottom: 2rem;
+}
+
+img {
+  border-radius: 8%;
+  height: 375px;
+  width: 260px;
+  margin-bottom: 5%;
+  text-align: center;
+}
+
+.anime-name {
+  padding-left: 10px;
+  width: 32ch;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+}
 

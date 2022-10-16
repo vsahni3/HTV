@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Environment Go!</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}"/>
   </head>
   <body>
     <nav
@@ -48,7 +49,19 @@
         </h1>
       </div>
     </div> 
-    <div class="grid allign grid-cols-4 gap-4 bg-emerald-300">
+    <div class="recommendation_list">
+      {% if data %}
+      {% for row in data|batch(2) %}
+      {% for column in row %}
+      <img src="{{ column[1] }}">
+      <a class="anime-name">{{ column[0] }}</a>
+      
+      
+      {% endfor %}
+      {% endfor %}
+      {% endif %}
+    </div>
+    <!-- <div class="grid allign grid-cols-4 gap-4 bg-emerald-300">
     
       <div class="p-6">
         <a
@@ -115,6 +128,6 @@
           </p>
         </a>
       </div> 
-    </div>
+    </div> -->
   </body>
 </html>

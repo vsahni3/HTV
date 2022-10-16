@@ -40,10 +40,9 @@ def login(msg):
         password = request.form.get("password")
         session["username"] = username
         session["password"] = password
-        sql1 = f"SELECT *  FROM userInfo WHERE username = '{username}'"
+        sql1 = f"SELECT * FROM userInfo WHERE username = '{username}'"
         cursor.execute(sql1)
         data = cursor.fetchone()
-        print(data[1], password)
         if data and data[1] == password:
             return redirect("/")
         else:
@@ -124,7 +123,7 @@ def challenges():
             'Cocos nucifera': 3000,
             # neem tree
             'Azadirachta indica': 2000,
-            'cucumber': 1000
+            'Dionaea muscipula': 1000
         }
     }
     session['current_challenge'] = current_challenge
@@ -155,7 +154,12 @@ def donate():
 @app.route("/")
 @login_required
 def index():
-    return render_template('index.html', user=session["username"], password=session["password"])
+
+    conn = sqlite3.connect('mydatabase.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT species_name, pic_url FROM user3')
+    data = cursor.fetchall()
+    return render_template('index.html', user=session["username"], password=session["password"], data=data)
 
 
 @app.route("/upload-file", methods=["POST", "GET"])
