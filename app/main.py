@@ -4,7 +4,7 @@ from functools import wraps
 from os import remove
 from tempfile import mkdtemp
 from datetime import datetime
-from score_functions import find_image_score
+from score_functions import dexter
 import sqlite3
 
 app = Flask(__name__)
@@ -26,53 +26,53 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-@app.route("/login/<msg>", methods=["GET", "POST"])
-def login(msg):
+# @app.route("/login/<msg>", methods=["GET", "POST"])
+# def login(msg):
+#     """Log user in"""
+#
+#     conn = sqlite3.connect('mydatabase.db')
+#     cursor = conn.cursor()
+#     # User reached route via POST (as by submitting a form via POST)
+#     if request.method == "POST":
+#         session.clear()
+#
+#         username = request.form.get("username")
+#         password = request.form.get("password")
+#         session["username"] = username
+#         session["password"] = password
+#         sql1 = f"SELECT *  FROM userInfo WHERE username = '{username}'"
+#         cursor.execute(sql1)
+#         data = cursor.fetchone()
+#         print(data[1], password)
+#         if data and data[1] == password:
+#             return redirect("/")
+#         else:
+#             return redirect(f"/login/{msg}")
+#     else:
+#         return render_template("login.html", data=msg)
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
     """Log user in"""
 
-    conn = sqlite3.connect('mydatabase.db')
-    cursor = conn.cursor()
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
         session.clear()
 
         username = request.form.get("username")
         password = request.form.get("password")
+
+        print(username, password)
         session["username"] = username
         session["password"] = password
-        sql1 = f"SELECT *  FROM userInfo WHERE username = '{username}'"
-        cursor.execute(sql1)
-        data = cursor.fetchone()
-        print(data[1], password)
-        if data and data[1] == password:
-            return redirect("/")
-        else:
-            return redirect(f"/login/{msg}")
+
+        # Redirect user to home page
+        return redirect("/")
+
+    # User reached route via GET (as by clicking a link or via redirect)
     else:
-        return render_template("login.html", data=msg)
-
-
-# @app.route("/login", methods=["GET", "POST"])
-# def login():
-#     """Log user in"""
-
-#     # User reached route via POST (as by submitting a form via POST)
-#     if request.method == "POST":
-#         session.clear()
-
-#         username = request.form.get("username")
-#         password = request.form.get("password")
-
-#         print(username, password)
-#         session["username"] = username
-#         session["password"] = password
-
-#         # Redirect user to home page
-#         return redirect("/")
-
-#     # User reached route via GET (as by clicking a link or via redirect)
-#     else:
-#         return render_template("login.html")
+        return render_template("login.html")
 
 
 @app.route("/challenges")
@@ -124,7 +124,7 @@ def uploader():
         f = request.files['file']
         f.save(f.filename)
         current_challenge = session["current_challenge"]
-        found_score = find_image_score(f.filename, current_challenge["species_name"], current_challenge["start_date"])
+        found_score = dexter(f.filename, current_challenge["species_name"], current_challenge["start_date"])
         "TODO: add found score to user score in leaderboard"
         remove(f.filename)
         "TODO: display the score result on challenges page?"
