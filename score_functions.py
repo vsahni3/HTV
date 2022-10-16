@@ -39,7 +39,7 @@ def find_current_score(init_score: int, init_time: datetime.datetime) -> int:
     return round(current_score)
 
 
-def find_image_score(img: str, correct_species: dict[str, int], init_time: datetime.datetime) -> int:
+def dexter(img: str, correct_species: dict[str, int], init_time: datetime.datetime) -> int:
     """
     Take in an image and a mapping of correct species to their initial score
     First call get_image_url to get the image url of the image
@@ -57,3 +57,19 @@ def find_image_score(img: str, correct_species: dict[str, int], init_time: datet
             return find_current_score(correct_species[name], init_time)
 
     return 0
+
+
+# testing the code
+if __name__ == '__main__':
+    img_path = 'test_pictures/palm-tree.jpg'
+    challenge_scores = {
+        # palm tree
+        'Cocos nucifera': 3000,
+        # neem tree
+        'Azadirachta indica': 2000,
+        'cucumber': 1000
+    }
+    # last week saturday, oct 8, 5pm
+    init_date = datetime.datetime(2022, 10, 8, 17, 0, 0)
+
+    print(dexter(img_path, challenge_scores, init_date))
