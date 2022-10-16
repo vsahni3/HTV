@@ -64,27 +64,36 @@
         </li>
       </ul>
     </nav>
-    Current Location: {{data[0]}}
+    <h1 class="text-4xl text-white text-center py-9 bg-emerald-300">
+      Current Location: {{data[0]}}
+    </h1>
+
     <div class="grid place-items-center h-screen bg-emerald-300">
       <div class="text-center">
-        <p>Weekly Challenges: </p>
-        <p>{{data[2][0]}}: {{data[3][0]}}</p>
-        <p>{{data[2][1]}}: {{data[3][1]}}</p>
-        <p>{{data[2][2]}}: {{data[3][2]}}</p>
-        {% if data|length == 5 %}
-        {% if data[4] > 0 %}
-        <p>Congratulations: Your score has been updated by {{data[4]}} points!</p>
+        <p class="text-2xl py-2 text-white text-center">Weekly Challenges:</p>
+        <p class="text-2xl py-2 text-white text-center">
+          {{data[2][0]}}: {{data[3][0]}}
+        </p>
+        <p class="text-2xl py-2 text-white text-center">
+          {{data[2][1]}}: {{data[3][1]}}
+        </p>
+        <p class="text-2xl py-2 text-white text-center">
+          {{data[2][2]}}: {{data[3][2]}}
+        </p>
+        {% if data|length == 5 %} {% if data[4] > 0 %}
+        <p>
+          Congratulations: Your score has been updated by {{data[4]}} points!
+        </p>
         {% else %}
         <p>Sorry, but your image did not match</p>
-        {% endif %}
-        {% endif %}
+        {% endif %} {% endif %}
         <h2 class="text-6xl py-8 text-white text-center">
-          The current prize pool is: {{data[1]}}
+          The current prize pool is:
         </h2>
-        <h1 class="text-6xl py-8 text-white text-center font-bold">{{pool}}</h1>
-        <form action="/donate" method="get">
+        <h1 class="text-8xl py-8 text-white text-center">{{data[1]}}</h1>
+        <h1 class="text-3xl py-8 text-white text-center font-bold">{{pool}}</h1>
+        <!-- <form action="/donate" method="get">
           <div class="pb-8 form-group">
-            
             <button
               class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full"
               type="submit"
@@ -92,7 +101,7 @@
               Donate
             </button>
           </div>
-        </form>
+        </form> -->
       </div>
     </div>
     <div id="root"></div>
