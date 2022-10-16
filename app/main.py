@@ -193,3 +193,22 @@ def uploader():
 @login_required
 def upload():
     return render_template('upload.html')
+
+@app.route("/leaderboard")
+@login_required
+def leaderboard():
+    conn = sqlite3.connect('mydatabase.db')
+    cursor = conn.cursor()
+    sql1 = "SELECT username FROM userInfo WHERE user_id in (SELECT user_id FROM leaderBoard)"
+    cursor.execute(sql1)
+    usernames = cursor.fetchall()
+    cursor.execute("SELECT score FROM leaderBoard")
+    scores = cursor.fetchall()
+    counts = list(range(1, 6))
+    data = [[scores[i], counts[i], usernames[i]] for i in range(5)]
+    return render_template('leaderboards.html', data=data)
+    
+
+
+
+

@@ -1,8 +1,10 @@
 import sqlite3
+from turtle import update
 
 conn = sqlite3.connect('mydatabase.db')
 mycursor = conn.cursor()
-
+mycursor.execute('SELECT * FROM userInfo')
+print(mycursor.fetchall())
 
 #initialize the user_info table
 sqlU = f"CREATE TABLE IF NOT EXISTS userInfo (user_id INTEGER PRIMARY KEY AUTOINCREMENT, password nvarchar(100), username nvarchar(100), money INTEGER)"
@@ -107,3 +109,4 @@ def get_picURLs(user_id):
 
 
 conn.commit()
+
