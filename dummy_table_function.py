@@ -118,12 +118,13 @@ def remove_money(username, donation_amount):
     sql7 = f"SELECT money FROM userInfo WHERE username = '{username}'"
     mycursor.execute(sql7)
     data = mycursor.fetchone()
+    print(data)
     minus_money = data[0] - donation_amount
 
     sql8 = f'''
             UPDATE userInfo
-            SET money = {minus_money}
-            WHERE username = {username}
+            SET money = '{minus_money}'
+            WHERE username = '{username}'
             '''
     mycursor.execute(sql8)
 
@@ -136,11 +137,10 @@ def remove_money(username, donation_amount):
 ###################################################################################################################################
 
 # "TODO3: add found score to user score in leaderboard: leaderboard, parameters(username, found_score) -> None"
-def add_addfound_score(user_id, found_score):
+def add_found_score(user_id, found_score):
     sql_88 = f"SELECT score FROM leaderBoard WHERE user_id = {user_id}"
     mycursor.execute(sql_88)
     data = mycursor.fetchone()
-    print(data)
     add_score = data[0] + found_score
     sql9 = f'''
             UPDATE leaderBoard
