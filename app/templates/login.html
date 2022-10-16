@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V3</title>
+	<title>Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -26,9 +26,56 @@
 <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}"/>
 <link rel="stylesheet" href="{{url_for('static', filename='css/util.css')}}"/>
 <!--===============================================================================================-->
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-
+	<div>
+        <span class="text-2xl text-white font-body">EnvGo</span>
+      </div>
+      <ul class="md:flex md:items-center">
+        <li class="mx-4 my-6 md:my-0"></li>
+        <li class="mx-4 my-6 md:my-0">
+          <a
+            href="index.html"
+            class="text-xl hover:text-black duration-500 text-white"
+          >
+            Home
+          </a>
+        </li>
+        <li class="mx-4 my-6 md:my-0">
+          <a
+            href="upload.html"
+            class="text-xl hover:text-black duration-500 text-white"
+          >
+            Upload
+          </a>
+        </li>
+        <li class="mx-4 my-6 md:my-0">
+          <a
+            href="challenges.html"
+            class="text-xl hover:text-black duration-500 text-white"
+          >
+            Prizes
+          </a>
+        </li>
+        <li class="mx-4 my-6 md:my-0">
+          <a
+            href="donate.html"
+            class="text-xl hover:text-black duration-500 text-white"
+          >
+            Donate
+          </a>
+        </li>
+        <li class="mx-4 my-6 md:my-0">
+          <a
+            href="/leaderboards"
+            class="text-xl hover:text-black duration-500 text-white"
+          >
+            Leaderboards
+          </a>
+        </li>
+      </ul>
+    </nav>
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100">
