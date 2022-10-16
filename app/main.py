@@ -132,7 +132,7 @@ def uploader():
         cursor = conn.cursor()
         sql1 = f"SELECT user_id FROM userInfo WHERE username = '{username}'"
         cursor.execute(sql1)
-        user_id = cursor.fetchone()
+        user_id = cursor.fetchone()[0]
         print(user_id)
 
         "TODO: add found score to user score in leaderboard: leaderboard, parameters(user_id, found_score) -> None"
