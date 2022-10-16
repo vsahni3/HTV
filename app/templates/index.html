@@ -32,7 +32,7 @@
         </li>
         <li class="mx-4 my-6 md:my-0">
           <a
-            href="/challenges"
+            href="/challenges/null"
             class="text-xl hover:text-black duration-500 text-white"
           >
             Prizes
@@ -62,17 +62,18 @@
         <h3 class="text-5xl py-8 text-white text-center">{{data[0]}}</h3>
         <h3 class="text-5xl py-8 text-white text-center">Money</h3>
         <h3 class="text-5xl py-8 text-white text-center">${{data[1]}}</h3>
+        Weekly Challenge Progress:
         <h1 class="text-4xl text-white text-center flex font-semibold"">
-          Challenge 1 Progress:
-          <p class="font-bold"> <p class="text-emerald-300">_</p> Not Found</p>
+          {{data[-2][0]}}:
+          <p class="font-bold"> <p class="text-emerald-300">_</p> {{data[-1][0]}}</p>
         </h1>
         <h1 class="text-4xl py-2 text-white text-center flex font-semibold"">
-          Challenge 2 Progress:
-          <p class="font-bold"><p class="text-emerald-300">_</p>Not Found</p>
+          {{data[-2][1]}}:
+          <p class="font-bold"><p class="text-emerald-300">_</p>{{data[-1][1]}}</p>
         </h1>
         <h1 class="text-4xl py-2 text-white text-center flex font-semibold"">
-          Challenge 3 Progress:
-          <p class="font-bold"><p class="text-emerald-300">_</p>Not Found</p>
+          {{data[-2][2]}}: 
+          <p class="font-bold"><p class="text-emerald-300">_</p>{{data[-1][2]}}</p>
         </h1>
       </div>
     </div>  
