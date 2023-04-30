@@ -12,4 +12,4 @@ def give_region():
                 region += data[cur_idex]
                 cur_idex += 1
             return region
-print(give_region())
+print(give_region(), end='\n')
